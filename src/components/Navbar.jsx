@@ -152,11 +152,11 @@ const Navbar = () => {
     const [openDropdown, setOpenDropdown] = useState(false);
 
     const handleProjectIconClick = () => {
-        navigate('/projects');
+        navigate('/projects', { replace: true });
     };
 
     const handleQualityGateIconClick = () => {
-        navigate('/qualityGate');
+        navigate('/qualityGate', { replace: true });
     };
 
     return (

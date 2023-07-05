@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import {greenColorCode, redColorCode} from "../constants";
 
 const Container = styled.div `
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -43,8 +44,6 @@ const PercentageFilled = styled.div `
 `;
 
 const QualityGateProjectsSummary = ({ passed, failed }) => {
-    const greenColorCode = "#79da14";
-    const redColorCode = "#e30903";
 
     const total = passed + failed;
     const passPercentage = (passed / total) * 100;

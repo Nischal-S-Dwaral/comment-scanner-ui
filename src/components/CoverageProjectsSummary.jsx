@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import {greenColorCode, orangeColorCode, redColorCode, yellowColorCode} from "../constants";
 
 const Container = styled.div `
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -27,11 +28,13 @@ const RangeContainer = styled.div `
 
 const NumberText = styled.span `
   margin-right: 5px;
+  flex: 1;
 `;
 
 const PercentageContainer = styled.div `
   border: 0.5px solid black;  
   width: 100%;
+  flex: 12;
 `;
 
 const PercentageFilled = styled.div `
@@ -43,11 +46,6 @@ const PercentageFilled = styled.div `
 `;
 
 const CoverageProjectsSummary = ({ coverages }) => {
-
-    const greenColorCode = "#79da14";
-    const redColorCode = "#e30903";
-    const yellowColorCode = "#f3cb4e";
-    const orangeColorCode = "#fd7c2c";
 
     let countGreaterThanOrEqual80 = 0;
     let countBetween60And80 = 0;
@@ -71,7 +69,7 @@ const CoverageProjectsSummary = ({ coverages }) => {
     return (
         <Container>
             <Title>
-                Coverage
+                Documentation Coverage
             </Title>
             <CoverageContainer>
                 <RangeText>>=80%</RangeText>
