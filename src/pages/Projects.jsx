@@ -4,6 +4,8 @@ import Navbar from "../components/Navbar";
 import QualityGateProjectsSummary from "../components/QualityGateProjectsSummary";
 import CoverageProjectsSummary from "../components/CoverageProjectsSummary";
 import {useNavigate} from "react-router-dom";
+import {projectsData} from "../data";
+import ProjectSummary from "../components/ProjectSummary";
 
 const Container = styled.div `
 `;
@@ -64,6 +66,10 @@ const CreateProjectButton = styled.button `
   cursor: pointer;
 `;
 
+const Bottom = styled.div `
+  display: flex;
+`;
+
 const Projects = () => {
 
     const navigate = useNavigate();
@@ -71,6 +77,8 @@ const Projects = () => {
     const handleCreateProjectButton = () => {
         navigate("/projects/create", { replace: true });
     }
+
+    const data=projectsData
 
     return (
         <Container>
@@ -84,11 +92,14 @@ const Projects = () => {
                     </Sidebar>
                     <MainContainer>
                         <Top>
-                            <TotalProjectsText>3 project(s)</TotalProjectsText>
+                            <TotalProjectsText>{data.length} project(s)</TotalProjectsText>
                             <CreateProjectButton onClick={handleCreateProjectButton}>
-                                Create Project
+                                Create New Project
                             </CreateProjectButton>
                         </Top>
+                        <Bottom>
+                            <ProjectSummary projects={data} />
+                        </Bottom>
                     </MainContainer>
                 </ProjectsContainer>
             </Main>
