@@ -5,11 +5,22 @@ const CircularPercentageWithLabel = ({ percentage }) => {
     return (
         <Box
             sx={{
-                width: '120px',
-                height: '120px',
+                width: '70px',
+                height: '70px',
                 position: 'relative',
             }}
         >
+            <Box
+                sx={{
+                    width: "100%",
+                    height: "100%",
+                    position: "absolute",
+                    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+                    border: `10px solid lightgrey`,
+                    borderRadius: "50%",
+                    boxSizing: "border-box",
+                }}
+            />
             <CircularProgress
                 variant="determinate"
                 value={percentage}
@@ -33,7 +44,7 @@ const CircularPercentageWithLabel = ({ percentage }) => {
                     variant="caption"
                     component="div"
                     color="text.secondary"
-                    fontSize={20}
+                    fontSize={16}
                 >
                     {`${Math.round(percentage)}%`}
                 </Typography>

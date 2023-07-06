@@ -20,6 +20,7 @@ const Left = styled.div `
   flex: 2;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const LogoText = styled.h2 `
@@ -151,6 +152,10 @@ const Navbar = () => {
     const navigate = useNavigate();
     const [openDropdown, setOpenDropdown] = useState(false);
 
+    const handleLogoClick = () => {
+        navigate('/', { replace: true })
+    }
+
     const handleProjectIconClick = () => {
         navigate('/projects', { replace: true });
     };
@@ -162,7 +167,7 @@ const Navbar = () => {
     return (
         <Container>
             <Wrapper>
-                <Left>
+                <Left onClick={handleLogoClick}>
                     <LogoText>Comment Scanner</LogoText>
                     <LogoImage src="/comment-scanner-icon-256.png" alt="Logo" />
                 </Left>
