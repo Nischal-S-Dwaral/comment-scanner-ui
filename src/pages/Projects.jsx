@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
-import QualityGateProjectsSummary from "../components/QualityGateProjectsSummary";
-import CoverageProjectsSummary from "../components/CoverageProjectsSummary";
+import QualityGateProjectsSummary from "../components/home/QualityGateProjectsSummary";
+import CoverageProjectsSummary from "../components/home/CoverageProjectsSummary";
 import {useNavigate} from "react-router-dom";
 import {projectsData} from "../data";
-import ProjectSummary from "../components/ProjectSummary";
+import ProjectSummary from "../components/home/ProjectSummary";
 
 const Container = styled.div `
 `;

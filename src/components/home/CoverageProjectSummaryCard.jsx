@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
-import {greenColorCode, redColorCode} from "../constants";
-import CircularPercentageWithLabel from "./CircularPercentageWithLabel";
+import {greenColorCode, redColorCode} from "../../constants";
+import CircularPercentageWithLabel from "../CircularPercentageWithLabel";
 import {useNavigate} from "react-router-dom";
 
 const Card = styled.div `

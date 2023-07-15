@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import {ErrorOutline} from "@mui/icons-material";
-import CircularPercentageWithLabel from "./CircularPercentageWithLabel";
+import CircularPercentageWithLabel from "../CircularPercentageWithLabel";
 
 const Container = styled.div `
   display: flex;

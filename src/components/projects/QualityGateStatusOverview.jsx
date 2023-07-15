@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import {Cancel, CheckCircle} from "@mui/icons-material";
-import {greenColorCode, redColorCode} from "../constants";
+import {greenColorCode, redColorCode} from "../../constants";
 
 const QualityGateStatusContainer = styled.div `
   padding: 30px;

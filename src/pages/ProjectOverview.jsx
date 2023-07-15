@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
-import ProjectAppBar from "../components/ProjectAppBar";
-import QualityGateStatusOverview from "../components/QualityGateStatusOverview";
-import CoverageOverview from "../components/CoverageOverview";
+import ProjectAppBar from "../components/projects/ProjectAppBar";
+import QualityGateStatusOverview from "../components/projects/QualityGateStatusOverview";
+import CoverageOverview from "../components/projects/CoverageOverview";
 import {DataGrid} from "@mui/x-data-grid";
 
 const Container = styled.div `
