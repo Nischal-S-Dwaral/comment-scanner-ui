@@ -2,6 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import {greenColorCode, redColorCode} from "../constants";
 import CircularPercentageWithLabel from "./CircularPercentageWithLabel";
+import {useNavigate} from "react-router-dom";
 
 const Card = styled.div `
   height: 160px;
@@ -93,8 +94,15 @@ const LastAnalysisText = styled.h4 `
 `;
 
 const CoverageProjectSummaryCard = ({ element }) => {
+
+    let navigate = useNavigate();
+
+    const handleCardClick = (id, projectName) => {
+        navigate("/dashboard/overview?id="+id+"&project="+projectName);
+    }
+
     return (
-        <Card key={element.id}>
+        <Card key={element.id} onClick={() => handleCardClick(element.id, element.projectName)}>
             <Top>
                 <ProjectName>{element.projectName}</ProjectName>
                 <QualityGateStatus qualityGatePass={element.qualityGatePass}>
