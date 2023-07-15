@@ -62,7 +62,7 @@ const RowCoverageText = styled.p `
   display: flex;
 `;
 
-const FolderExplorer = ({ apiResponse, parameterCurrentPath }) => {
+const FolderExplorer = ({ apiResponse, parameterCurrentPath, handleClassClick }) => {
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -142,7 +142,7 @@ const FolderExplorer = ({ apiResponse, parameterCurrentPath }) => {
                                 <>
                                     {directory.files.map((item) => (
                                         <RowEntryContainer>
-                                            <RowEntry>
+                                            <RowEntry onClick={() => handleClassClick(directory.path + "/" +item.name)}>
                                                 <RowEntryFolderName>
                                                     <TextSnippet style={{ color: "#6a5acd", marginRight: '5px' }}/>
                                                     {item.name}

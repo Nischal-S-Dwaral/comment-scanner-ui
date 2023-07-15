@@ -4,6 +4,9 @@ import Navbar from "../components/Navbar";
 import ProjectAppBar from "../components/ProjectAppBar";
 import FolderTree from "../components/FolderTree";
 import FolderExplorer from "../components/FolderExplorer";
+import {Dialog} from "@mui/material";
+import {useLocation} from "react-router-dom";
+import CodeView from "../components/codeView/CodeView";
 
 const Container = styled.div `
   display: flex;
@@ -32,7 +35,6 @@ const Right = styled.div `
 `;
 
 const ProjectCode = () => {
-
 
     const [apiResponse, setApiResponse] = useState([
         {
@@ -165,6 +167,12 @@ const ProjectCode = () => {
     ]);
 
     const [currentPath, setCurrentPath] = useState("");
+    const [openCodeModal, setCodeOpenModal] = useState(false);
+    const [className, setClassName] = useState('');
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const projectName = searchParams.get('project');
 
     useEffect(() => {
         const baseDirectories = apiResponse.filter((directory) => directory.isBaseDirectory);
@@ -174,9 +182,24 @@ const ProjectCode = () => {
         }
     }, [apiResponse]);
 
+    useEffect(() => {
+        if (className) {
+            setCodeOpenModal(true);
+        }
+    },[className]);
+
     const handleChangeInPath = (newPath) => {
         setCurrentPath(newPath);
     }
+
+    const handleClassClick = (clickClassName) => {
+        setClassName(clickClassName);
+    }
+
+    const handleCloseCodeModel = () => {
+        setCodeOpenModal(false);
+        setClassName('');
+    };
 
     return (
         <Container>
@@ -191,16 +214,27 @@ const ProjectCode = () => {
                                 <FolderTree
                                     apiResponse={apiResponse}
                                     handleChangeInPath={handleChangeInPath}
+                                    handleClassClick={handleClassClick}
                                 />
                             </Left>
                             <Right>
                                 <FolderExplorer
                                     apiResponse={apiResponse}
-                                    parameterCurrentPath={currentPath}/>
+                                    parameterCurrentPath={currentPath}
+                                    handleClassClick={handleClassClick}
+                                />
                             </Right>
                         </>
                     )
                 }
+                <Dialog
+                    open={openCodeModal}
+                    onClose={handleCloseCodeModel}
+                    fullWidth
+                    maxWidth={false}
+                >
+                    <CodeView projectName={projectName} className={className}/>
+                </Dialog>
             </Main>
         </Container>
     );

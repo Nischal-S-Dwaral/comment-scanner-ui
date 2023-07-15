@@ -14,7 +14,7 @@ const Main = styled.div`
 `;
 
 const Left = styled.div`
-  flex: 1;
+  flex: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;

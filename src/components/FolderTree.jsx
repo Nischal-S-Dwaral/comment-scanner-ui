@@ -14,7 +14,7 @@ const TreeContainer = styled.div `
   overflow: auto;
 `;
 
-const FolderTree = ({ apiResponse, handleChangeInPath }) => {
+const FolderTree = ({ apiResponse, handleChangeInPath, handleClassClick }) => {
 
     const [expanded, setExpanded] = useState([]);
 
@@ -61,10 +61,6 @@ const FolderTree = ({ apiResponse, handleChangeInPath }) => {
         handleChangeInPath(directoryPath);
     }
 
-    const handleClassClick = (directoryPath, fileName) => {
-        console.log("Clicked on " + directoryPath + " -> " + fileName);
-    }
-
     const generateFolderTreeItems = (directory, previousDirectoryPath) => {
         if (!directory) {
             return null;
@@ -95,7 +91,7 @@ const FolderTree = ({ apiResponse, handleChangeInPath }) => {
                         label={`${file.name} (${file.coverage})`}
                         icon={<TextSnippet style={{ color: "#6a5acd" }}/>}
                         style={{ fontFamily: "'Urbanist', sans-serif" }}
-                        onClick={() => handleClassClick(directory.path, file.name)}
+                        onClick={() => handleClassClick(directory.path+"/"+file.name)}
                     />
                 ))}
                 {directory.directories.map((subDirectory) => generateFolderTreeItems(subDirectory, directory.path))}
