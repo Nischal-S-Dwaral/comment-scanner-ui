@@ -6,6 +6,7 @@ import CoverageProjectsSummary from "../components/home/CoverageProjectsSummary"
 import {useNavigate} from "react-router-dom";
 import {projectsData} from "../data";
 import ProjectSummary from "../components/home/ProjectSummary";
+import EditQualityGate from "../components/home/EditQualityGate";
 
 const Container = styled.div `
 `;
@@ -89,6 +90,7 @@ const Projects = () => {
                         <SidebarHeader>Summary</SidebarHeader>
                         <QualityGateProjectsSummary passed={6} failed={4}/>
                         <CoverageProjectsSummary coverages={[20,50,75,95,83,91,94,99,100,38,83,89,88,90,85]}/>
+                        <EditQualityGate />
                     </Sidebar>
                     <MainContainer>
                         <Top>

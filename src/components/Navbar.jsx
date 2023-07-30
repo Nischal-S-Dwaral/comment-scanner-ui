@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import {AccountTree, FactCheck} from "@mui/icons-material";
+import {AccountTree} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
 
 const Container = styled.div `
@@ -160,10 +160,6 @@ const Navbar = () => {
         navigate('/projects', { replace: true });
     };
 
-    const handleQualityGateIconClick = () => {
-        navigate('/qualityGate', { replace: true });
-    };
-
     return (
         <Container>
             <Wrapper>
@@ -176,12 +172,6 @@ const Navbar = () => {
                         <AccountTree/>
                         <CenterNavigationText>
                             Projects
-                        </CenterNavigationText>
-                    </CenterNavigation>
-                    <CenterNavigation onClick={handleQualityGateIconClick}>
-                        <FactCheck/>
-                        <CenterNavigationText>
-                            Quality Gates
                         </CenterNavigationText>
                     </CenterNavigation>
                 </Center>

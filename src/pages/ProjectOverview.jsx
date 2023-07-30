@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import ProjectAppBar from "../components/projects/ProjectAppBar";
 import QualityGateStatusOverview from "../components/projects/QualityGateStatusOverview";
 import CoverageOverview from "../components/projects/CoverageOverview";
-import {DataGrid} from "@mui/x-data-grid";
+import {DataGrid, GridToolbar} from "@mui/x-data-grid";
 
 const Container = styled.div `
   display: flex;
@@ -34,6 +34,7 @@ const Right = styled.div `
 const ActivityDataGridContainer = styled.div `
   background-color: white;
   width: 100%;
+  height: 303px;
 `;
 
 const ProjectOverview = () => {
@@ -58,6 +59,18 @@ const ProjectOverview = () => {
             coverage: "84%",
             date: "2023/11/19",
             time: "19:45"
+        },
+        {
+            id: 4,
+            coverage: "64%",
+            date: "2023/11/23",
+            time: "22:41"
+        },
+        {
+            id: 5,
+            coverage: "91%",
+            date: "2023/12/17",
+            time: "06:17"
         }
     ]
 
@@ -85,7 +98,10 @@ const ProjectOverview = () => {
                             rows={data}
                             columns={columns}
                             pagination
-                            pageSizeOptions={[3]}
+                            autoPageSize
+                            components={{
+                                Toolbar: GridToolbar,
+                            }}
                         />
                     </ActivityDataGridContainer>
                 </Right>
