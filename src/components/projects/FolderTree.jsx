@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import {TreeItem, TreeView} from "@material-ui/lab";
 import {Folder, TextSnippet} from "@mui/icons-material";
+import {TreeItem, TreeView} from "@mui/lab";
 
 const Container = styled.div `
   background-color: white;
