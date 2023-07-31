@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
+import {Dialog} from "@mui/material";
+import ComingSoon from "../components/createProject/ComingSoon";
+import GitHubConfiguration from "../components/createProject/GitHubConfiguration";
 
 const Container = styled.div `
 `;
@@ -79,6 +82,30 @@ const OptionComment = styled.h4 `
 `;
 
 const CreateProject = () => {
+
+    const [openGitLabConfigurationModal, setOpenGitLabConfigurationModal] = useState(false);
+    const [openGitHubConfigurationModal, setOpenGitHubConfigurationModal] = useState(false);
+
+    const handleCloseGitHubConfigurationModel = () => {
+        setOpenGitHubConfigurationModal(false);
+    };
+
+    const handleGitHubOptionClick = () => {
+        setOpenGitHubConfigurationModal(true)
+    }
+
+    const handleCancelButtonClick = (value) => {
+        setOpenGitHubConfigurationModal(value);
+    }
+
+    const handleCloseGitLabConfigurationModel = () => {
+        setOpenGitLabConfigurationModal(false);
+    };
+
+    const handleGitLabOptionClick = () => {
+        setOpenGitLabConfigurationModal(true);
+    };
+
     return (
         <Container>
             <Main>
@@ -93,18 +120,33 @@ const CreateProject = () => {
                         </Description>
                     </Left>
                     <Right>
-                        <Option>
+                        <Option onClick={handleGitHubOptionClick}>
                             <OptionIcon src="/github.png" alt="GitHub" />
                             <OptionText>From GitHub</OptionText>
                             <OptionComment>Set up configuration</OptionComment>
                         </Option>
-                        <Option>
+                        <Option onClick={handleGitLabOptionClick}>
                             <OptionIcon src="/gitlab.png" alt="GitLab" />
                             <OptionText>From GitLab</OptionText>
                             <OptionComment>Set up configuration</OptionComment>
                         </Option>
                     </Right>
                 </CreatePageContainer>
+                <Dialog
+                    open={openGitHubConfigurationModal}
+                    onClose={handleCloseGitHubConfigurationModel}
+                    disableBackdropClick
+                >
+                    <GitHubConfiguration
+                        handleCancelButtonClick={handleCancelButtonClick}
+                    />
+                </Dialog>
+                <Dialog
+                    open={openGitLabConfigurationModal}
+                    onClose={handleCloseGitLabConfigurationModel}
+                >
+                    <ComingSoon/>
+                </Dialog>
             </Main>
         </Container>
     );

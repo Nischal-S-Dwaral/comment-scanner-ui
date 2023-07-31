@@ -5,7 +5,7 @@ import CircularPercentageWithLabel from "../CircularPercentageWithLabel";
 import {useNavigate} from "react-router-dom";
 
 const Card = styled.div `
-  height: 160px;
+  height: 220px;
   background-color: #e9f5f5;
   border-radius: 5px;
   border: 0.5px solid black;

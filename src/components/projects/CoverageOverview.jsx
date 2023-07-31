@@ -15,7 +15,7 @@ const Left = styled.div `
   border-radius: 10px;
   background-color: white;
   padding: 30px;
-  height: 200px;
+  height: 250px;
   width: 100%;
 `;
 
@@ -71,7 +71,7 @@ const Right = styled.div `
   background-color: white;
   padding: 30px;
   margin-left: 10px;
-  height: 200px;
+  height: 250px;
   width: 100%;
 `;
 

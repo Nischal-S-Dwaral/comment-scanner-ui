@@ -2,15 +2,17 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import {AccountTree} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../api/Logout";
 
 const Container = styled.div `
-  height: 60px;
+  height: 50px;
   background-color: black;
   color: white;
 `;
 
 const Wrapper = styled.div `
-  padding: 10px;
+  padding: 20px;
   height: 75%;
   display: flex;
   align-items: center;
@@ -151,6 +153,8 @@ const Navbar = () => {
 
     const navigate = useNavigate();
     const [openDropdown, setOpenDropdown] = useState(false);
+    let {currentUser} = useSelector(state => state.user);
+    const dispatch = useDispatch();
 
     const handleLogoClick = () => {
         navigate('/', { replace: true })
@@ -159,6 +163,18 @@ const Navbar = () => {
     const handleProjectIconClick = () => {
         navigate('/projects', { replace: true });
     };
+
+    const handleLogoutButtonClick = (event) => {
+        event.preventDefault(); // prevents the refresh of the page
+
+        try {
+            logout(dispatch).then(() =>
+                navigate("/login", { replace: true })
+            )
+        } catch (error) {
+            console.log("Error while logging out: ", error);
+        }
+    }
 
     return (
         <Container>
@@ -177,17 +193,17 @@ const Navbar = () => {
                 </Center>
                 <Right>
                     <UserNameText onClick={() => {setOpenDropdown(!openDropdown)}}>
-                        Hello, Nischal
+                        Hello, {currentUser.username}
                     </UserNameText>
                     <ProfileDropdown active={openDropdown}>
                         <DropdownTopContainer>
-                            <LetterImage>N</LetterImage>
+                            <LetterImage>{currentUser.username.charAt(0).toUpperCase()}</LetterImage>
                             <DropdownRightContainer>
-                                <UserName>Nischal</UserName>
-                                <UserEmail>nischal@gmail.com</UserEmail>
+                                <UserName>{currentUser.username}</UserName>
+                                <UserEmail>{currentUser.email}</UserEmail>
                             </DropdownRightContainer>
                         </DropdownTopContainer>
-                        <Button>LOGOUT</Button>
+                        <Button onClick={handleLogoutButtonClick}>LOGOUT</Button>
                     </ProfileDropdown>
                 </Right>
             </Wrapper>
