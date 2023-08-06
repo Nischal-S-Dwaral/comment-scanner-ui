@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import QualityGateProjectsSummary from "../components/home/QualityGateProjectsSummary";
 import CoverageProjectsSummary from "../components/home/CoverageProjectsSummary";
 import {useNavigate} from "react-router-dom";
-import {projectsData} from "../data";
 import ProjectSummary from "../components/home/ProjectSummary";
 import EditQualityGate from "../components/home/EditQualityGate";
+import {useSelector} from "react-redux";
+import axios from "axios";
+import Loading from "../components/Loading";
 
 const Container = styled.div `
 `;
@@ -14,6 +16,14 @@ const Container = styled.div `
 const Main = styled.div `
   display: flex;
   flex-direction: column;
+`;
+
+const LoadingContainer  = styled.div `
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ProjectsContainer = styled.div`
@@ -73,37 +83,100 @@ const Bottom = styled.div `
 
 const Projects = () => {
 
+    const [projects, setProjects] = useState([]);
+    const [qualityGate, setQualityGate] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
     const navigate = useNavigate();
+    const user = useSelector((state) => state.user.currentUser);
 
     const handleCreateProjectButton = () => {
         navigate("/projects/create", { replace: true });
     }
 
-    const data=projectsData
+    useEffect(() => {
+        const getQualityGate = async () => {
+            setIsLoading(true);
+
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: 'http://localhost:8080/api/qualityGate/getByUserId?userId='+user.uid,
+                headers: { }
+            };
+
+            axios.request(config)
+                .then((response) => {
+                   if (response.data.returnCode === "0" ) {
+                       setQualityGate(response.data.qualityGate);
+                   } else {
+                       console.log(response.data);
+                   }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+
+        getQualityGate().then(() => {
+
+            if (qualityGate !== '') {
+
+                let config = {
+                    method: 'get',
+                    maxBodyLength: Infinity,
+                    url: 'http://localhost:8080/api/summary/getByUserId?userId='+user.uid+'&qualityGate='+qualityGate,
+                    headers: { }
+                };
+
+                axios.request(config)
+                    .then((response) => {
+                        if (response.data.returnCode === "0" ) {
+                            setProjects(response.data.projectSummaryList);
+                            setIsLoading(false);
+                        } else {
+                            console.log(response.data);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+        });
+
+    },[qualityGate, user.uid]);
 
     return (
         <Container>
             <Main>
                 <Navbar/>
-                <ProjectsContainer>
-                    <Sidebar>
-                        <SidebarHeader>Summary</SidebarHeader>
-                        <QualityGateProjectsSummary passed={6} failed={4}/>
-                        <CoverageProjectsSummary coverages={[20,50,75,95,83,91,94,99,100,38,83,89,88,90,85]}/>
-                        <EditQualityGate />
-                    </Sidebar>
-                    <MainContainer>
-                        <Top>
-                            <TotalProjectsText>{data.length} project(s)</TotalProjectsText>
-                            <CreateProjectButton onClick={handleCreateProjectButton}>
-                                Create New Project
-                            </CreateProjectButton>
-                        </Top>
-                        <Bottom>
-                            <ProjectSummary projects={data} />
-                        </Bottom>
-                    </MainContainer>
-                </ProjectsContainer>
+                {
+                    isLoading ? (
+                        <LoadingContainer>
+                            <Loading loadingText={'Loading... Getting Projects'}/>
+                        </LoadingContainer>
+                    ) : (
+                        <ProjectsContainer>
+                            <Sidebar>
+                                <SidebarHeader>Summary</SidebarHeader>
+                                <QualityGateProjectsSummary projects={projects}/>
+                                <CoverageProjectsSummary projects={projects}/>
+                                <EditQualityGate qualityGate={qualityGate} />
+                            </Sidebar>
+                            <MainContainer>
+                                <Top>
+                                    <TotalProjectsText>{projects.length} project(s)</TotalProjectsText>
+                                    <CreateProjectButton onClick={handleCreateProjectButton}>
+                                        Create New Project
+                                    </CreateProjectButton>
+                                </Top>
+                                <Bottom>
+                                    <ProjectSummary projects={projects} />
+                                </Bottom>
+                            </MainContainer>
+                        </ProjectsContainer>
+                    )
+                }
             </Main>
         </Container>
     );

@@ -97,14 +97,14 @@ const CoverageProjectSummaryCard = ({ element }) => {
 
     let navigate = useNavigate();
 
-    const handleCardClick = (id, projectName) => {
-        navigate("/dashboard/overview?id="+id+"&project="+projectName);
+    const handleCardClick = (id, repository) => {
+        navigate("/dashboard/overview?id="+id+"&project="+repository);
     }
 
     return (
-        <Card key={element.id} onClick={() => handleCardClick(element.id, element.projectName)}>
+        <Card key={element.projectId} onClick={() => handleCardClick(element.projectId, element.repository)}>
             <Top>
-                <ProjectName>{element.projectName}</ProjectName>
+                <ProjectName>{element.repository}</ProjectName>
                 <QualityGateStatus qualityGatePass={element.qualityGatePass}>
                     {element.qualityGatePass}
                 </QualityGateStatus>
@@ -122,7 +122,7 @@ const CoverageProjectSummaryCard = ({ element }) => {
                 </LanguageContainer>
                 <LastAnalysisContainer>
                     <Text>Last Analysis</Text>
-                    <LastAnalysisText>{element.lastAnalysis}</LastAnalysisText>
+                    <LastAnalysisText>{element.date}</LastAnalysisText>
                 </LastAnalysisContainer>
             </Bottom>
         </Card>

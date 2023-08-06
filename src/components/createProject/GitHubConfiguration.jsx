@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import {TextField} from "@mui/material";
+import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
+import {Autocomplete} from "@mui/lab";
 
 const Container = styled.div `
   display: flex;
@@ -57,18 +58,52 @@ const Button = styled.button `
 
 const GitHubConfiguration = ({ handleCancelButtonClick }) => {
 
+    const languages = [
+        { label: 'Java', value: 'java' }
+    ];
+
+    const [selectedLanguage, setSelectedLanguage] = useState(null);
     const [owner, setOwner] = useState('');
     const [repositoryName, setRepositoryName] = useState('');
     const [personalAccessToken, setPersonalAccessToken] = useState('');
+    const [language, setLanguage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
-    const handleSaveConfigurationClick = () => {}
+    const handleLanguageChange = (event, newValue) => {
+        setSelectedLanguage(newValue);
+        if (newValue) {
+            setLanguage(newValue.value);
+        } else {
+            setLanguage(null);
+        }
+    };
+
+    const isOptionEqualToValue = (option, value) => {
+        return option.value === value.value;
+    };
+
+    const handleSaveConfigurationClick = () => {
+        if (!owner || !repositoryName || !personalAccessToken || !language) {
+            setErrorMessage("Please fill up all the required informations.");
+            setOpenErrorDialog(true);
+            return;
+        }
+        console.log('All fields have valid values:');
+    }
 
     const handleCancelClick = () => {
         setOwner('');
         setRepositoryName('');
         setPersonalAccessToken('');
+        setLanguage('');
         handleCancelButtonClick(false)
     }
+
+    const handleErrorDialogClose = (event) => {
+       event.preventDefault();
+       setOpenErrorDialog(false);
+    };
 
     return (
         <Container>
@@ -127,6 +162,25 @@ const GitHubConfiguration = ({ handleCancelButtonClick }) => {
                         style={{ flex: 1, marginLeft: '10px' }}
                     />
                 </ConfigurationContainer>
+                <ConfigurationContainer>
+                    <TextContainer>
+                        <TextHeader>Language *</TextHeader>
+                        <TextComment>
+                            Please select the coding language of the repository
+                        </TextComment>
+                    </TextContainer>
+                    <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        options={languages}
+                        getOptionLabel={(option) => option.label}
+                        onChange={handleLanguageChange}
+                        value={selectedLanguage}
+                        isOptionEqualToValue={isOptionEqualToValue}
+                        sx={{ flex: 1 }}
+                        renderInput={(params) => <TextField {...params} label="Language" />}
+                    />
+                </ConfigurationContainer>
             </Middle>
             <Bottom>
                 <Button onClick={handleSaveConfigurationClick}>
@@ -136,6 +190,33 @@ const GitHubConfiguration = ({ handleCancelButtonClick }) => {
                     Cancel
                 </Button>
             </Bottom>
+            {
+                errorMessage &&
+                <Dialog
+                    open={openErrorDialog}
+                    onClose={handleErrorDialogClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {"Error while creating project!!"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {errorMessage}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick={handleErrorDialogClose}
+                            autoFocus
+                            style={{ width: '100%' }}
+                        >
+                            Okay
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            }
         </Container>
     );
 };

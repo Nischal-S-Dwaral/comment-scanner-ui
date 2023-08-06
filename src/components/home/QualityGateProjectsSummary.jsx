@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {greenColorCode, redColorCode} from "../../constants";
 
@@ -43,40 +43,55 @@ const PercentageFilled = styled.div `
   height: 100%;
 `;
 
-const QualityGateProjectsSummary = ({ passed, failed }) => {
+const QualityGateProjectsSummary = ({ projects }) => {
 
-    const total = passed + failed;
-    const passPercentage = (passed / total) * 100;
-    const failPercentage = (failed / total) * 100;
+    const [passPercentage, setPassPercentage] = useState(0.0);
+    const [failPercentage, setFailPercentage] = useState(0.0);
+    const [passed, setPassed] = useState(0);
+    const [failed, setFailed] = useState(0);
+
+
+    useEffect(() => {
+        setPassed(projects.filter((project) => project.qualityGatePass === 'PASSED').length);
+        setFailed(projects.filter((project) => project.qualityGatePass === 'FAILED').length);
+    }, [projects]);
+
+    useEffect(() => {
+        const total = passed + failed;
+        const pass = (passed / total) * 100;
+        const fail = (failed / total) * 100;
+
+        setPassPercentage(pass);
+        setFailPercentage(fail);
+    }, [passed, failed]);
+
 
     return (
-        <Container>
-            <Title>
-                Quality Gate
-            </Title>
-            <QualityContainer>
-                <QualityText>Passed</QualityText>
-                <NumberContainer>
-                    <NumberText>
-                        {passed}
-                    </NumberText>
-                    <PercentageContainer>
-                        <PercentageFilled percentage={passPercentage} fillColor={greenColorCode} />
-                    </PercentageContainer>
-                </NumberContainer>
-            </QualityContainer>
-            <QualityContainer>
-                <QualityText>Failed</QualityText>
-                <NumberContainer>
-                    <NumberText>
-                        {failed}
-                    </NumberText>
-                    <PercentageContainer>
-                        <PercentageFilled percentage={failPercentage} fillColor={redColorCode} />
-                    </PercentageContainer>
-                </NumberContainer>
-            </QualityContainer>
-        </Container>
+        <>
+            {(passPercentage !== 0.0 || failPercentage !== 0.0) && (
+                <Container>
+                    <Title>Quality Gate</Title>
+                    <QualityContainer>
+                        <QualityText>Passed</QualityText>
+                        <NumberContainer>
+                            <NumberText>{passed}</NumberText>
+                            <PercentageContainer>
+                                <PercentageFilled percentage={passPercentage} fillColor={greenColorCode} />
+                            </PercentageContainer>
+                        </NumberContainer>
+                    </QualityContainer>
+                    <QualityContainer>
+                        <QualityText>Failed</QualityText>
+                        <NumberContainer>
+                            <NumberText>{failed}</NumberText>
+                            <PercentageContainer>
+                                <PercentageFilled percentage={failPercentage} fillColor={redColorCode} />
+                            </PercentageContainer>
+                        </NumberContainer>
+                    </QualityContainer>
+                </Container>
+            )}
+        </>
     );
 };
 

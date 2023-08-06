@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {greenColorCode, orangeColorCode, redColorCode, yellowColorCode} from "../../constants";
 
@@ -45,26 +45,41 @@ const PercentageFilled = styled.div `
   height: 100%;
 `;
 
-const CoverageProjectsSummary = ({ coverages }) => {
+const CoverageProjectsSummary = ({ projects }) => {
 
-    let countGreaterThanOrEqual80 = 0;
-    let countBetween60And80 = 0;
-    let countBetween40And60 = 0;
-    let countLessThan40 = 0;
+    const [countGreaterThanOrEqual80, setCountGreaterThanOrEqual80] = useState(0);
+    const [countBetween60And80, setCountBetween60And80] = useState(0);
+    const [countBetween40And60, setCountBetween40And60] = useState(0);
+    const [countLessThan40, setCountLessThan40] = useState(0);
+    const [total, setTotal] = useState(0);
 
-    coverages.forEach(number => {
-        if (number >= 80) {
-            countGreaterThanOrEqual80++;
-        } else if (number >= 60 && number < 80) {
-            countBetween60And80++;
-        } else if (number >= 40 && number < 60) {
-            countBetween40And60++;
-        } else {
-            countLessThan40++;
-        }
-    });
+    useEffect(() => {
+        const coverages = projects.map(project => project.coveragePercentage);
+        setTotal(coverages.length);
 
-    const total = coverages.length;
+        let countGE80 = 0;
+        let count60To80 = 0;
+        let count40To60 = 0;
+        let countLT40 = 0;
+
+        coverages.forEach(number => {
+            if (number >= 80) {
+                countGE80++;
+            } else if (number >= 60 && number < 80) {
+                count60To80++;
+            } else if (number >= 40 && number < 60) {
+                count40To60++;
+            } else {
+                countLT40++;
+            }
+        });
+
+        // Update the state with the new counts
+        setCountGreaterThanOrEqual80(countGE80);
+        setCountBetween60And80(count60To80);
+        setCountBetween40And60(count40To60);
+        setCountLessThan40(countLT40);
+    }, [projects]);
 
     return (
         <Container>
