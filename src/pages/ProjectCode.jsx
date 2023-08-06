@@ -55,7 +55,7 @@ const ProjectCode = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [currentPath, setCurrentPath] = useState("");
     const [openCodeModal, setCodeOpenModal] = useState(false);
-    const [className, setClassName] = useState('');
+    const [classId, setClassId] = useState('');
 
     useEffect(() => {
 
@@ -92,22 +92,22 @@ const ProjectCode = () => {
     }, [projectCodeStructure]);
 
     useEffect(() => {
-        if (className) {
+        if (classId) {
             setCodeOpenModal(true);
         }
-    },[className]);
+    },[classId]);
 
     const handleChangeInPath = (newPath) => {
         setCurrentPath(newPath);
     }
 
-    const handleClassClick = (clickClassName) => {
-        setClassName(clickClassName);
+    const handleClassClick = (clickClassId) => {
+        setClassId(clickClassId);
     }
 
     const handleCloseCodeModel = () => {
         setCodeOpenModal(false);
-        setClassName('');
+        setClassId('');
     };
 
     return (
@@ -150,7 +150,7 @@ const ProjectCode = () => {
                                     fullWidth
                                     maxWidth={false}
                                 >
-                                    <CodeView projectName={projectName} className={className}/>
+                                    <CodeView projectName={projectName} classId={classId}/>
                                 </Dialog>
                             </Main>
                         </>

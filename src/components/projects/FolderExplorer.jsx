@@ -142,7 +142,7 @@ const FolderExplorer = ({ apiResponse, parameterCurrentPath, handleClassClick })
                                 <>
                                     {directory.files.map((item) => (
                                         <RowEntryContainer>
-                                            <RowEntry onClick={() => handleClassClick(directory.path + "/" +item.name)}>
+                                            <RowEntry onClick={() => handleClassClick(item.id)}>
                                                 <RowEntryFolderName>
                                                     <TextSnippet style={{ color: "#6a5acd", marginRight: '5px' }}/>
                                                     {item.name}

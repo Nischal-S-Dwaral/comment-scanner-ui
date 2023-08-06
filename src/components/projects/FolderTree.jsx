@@ -23,10 +23,11 @@ const FolderTree = ({ apiResponse, handleChangeInPath, handleClassClick }) => {
     };
 
     const convertResponseToObject = (response) => {
+        const rootIndex = response.findIndex((item) => item.baseDirectory === true);
         const root = {
-            path: response[0].path,
-            coverage: response[0].coverage,
-            files: response[0].files,
+            path: response[rootIndex].path,
+            coverage: response[rootIndex].coverage,
+            files: response[rootIndex].files,
             directories: [],
         };
 
@@ -34,23 +35,35 @@ const FolderTree = ({ apiResponse, handleChangeInPath, handleClassClick }) => {
             [root.path]: root,
         };
 
-        for (let i = 1; i < response.length; i++) {
-            const directoryPath = response[i].path;
-            const directory = {
-                path: directoryPath,
-                coverage: response[i].coverage,
-                files: response[i].files,
-                directories: [],
-            };
+        let responseCopy = [...response];
+        let newDirectoriesAdded = true;
 
-            const parentPath = directoryPath.substring(0, directoryPath.lastIndexOf('/'));
-            const parentDirectory = directoriesMap[parentPath];
+        while (responseCopy.length > 0 && newDirectoriesAdded) {
+            newDirectoriesAdded = false;
 
-            if (parentDirectory) {
-                parentDirectory.directories.push(directory);
-                directoriesMap[directoryPath] = directory;
+            for (let i = 0; i < responseCopy.length; i++) {
+                const currentItem = responseCopy[i];
+                const directoryPath = currentItem.path;
+                const parentPath = directoryPath.substring(0, directoryPath.lastIndexOf('/'));
+                const parentDirectory = directoriesMap[parentPath];
+
+                if (parentDirectory) {
+                    const directory = {
+                        path: directoryPath,
+                        coverage: currentItem.coverage,
+                        files: currentItem.files,
+                        directories: [],
+                    };
+
+                    parentDirectory.directories.push(directory);
+                    directoriesMap[directoryPath] = directory;
+                    responseCopy.splice(i, 1);
+                    newDirectoriesAdded = true;
+                    break;
+                }
             }
         }
+
 
         return root;
     };
@@ -91,7 +104,7 @@ const FolderTree = ({ apiResponse, handleChangeInPath, handleClassClick }) => {
                         label={`${file.name} (${file.coverage})`}
                         icon={<TextSnippet style={{ color: "#6a5acd" }}/>}
                         style={{ fontFamily: "'Urbanist', sans-serif" }}
-                        onClick={() => handleClassClick(directory.path+"/"+file.name)}
+                        onClick={() => handleClassClick(file.id)}
                     />
                 ))}
                 {directory.directories.map((subDirectory) => generateFolderTreeItems(subDirectory, directory.path))}

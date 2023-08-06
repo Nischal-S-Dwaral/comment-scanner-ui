@@ -36,9 +36,15 @@ const CodeLine = styled.span `
 
 const CodeRow = ({ lineNumber, code, isHighlight = false, highlightColor = "", popOverText = "" }) => {
 
-    const containerFillColor = isHighlight ? (
-        highlightColor === "red" ? "#f1bcbc" : "#e2f5d1")
+    const containerFillColor = isHighlight
+        ? highlightColor === "red"
+            ? "#f1bcbc"
+            : highlightColor === "orange"
+                ? "#f5e0cc"
+                : "#e2f5d1"
         : "none";
+
+    const formattedCode = code.replace(/<SPACE>/g, ' ');
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -69,7 +75,7 @@ const CodeRow = ({ lineNumber, code, isHighlight = false, highlightColor = "", p
                 }
             </LeftContainer>
             <RightContainer>
-                <CodeLine>{code}</CodeLine>
+                <CodeLine>{formattedCode}</CodeLine>
             </RightContainer>
             <Popover
                 id={popoverId}
