@@ -36,7 +36,7 @@ const PercentageContainer = styled.div `
 `;
 
 const PercentageFilled = styled.div `
-  background-color: ${(props) => props.fillColor};
+  background-color: ${(props) => props.fillcolor};
   width: ${(props) => props.percentage}%;
   top: 0;
   right: 0;
@@ -76,7 +76,7 @@ const QualityGateProjectsSummary = ({ projects }) => {
                         <NumberContainer>
                             <NumberText>{passed}</NumberText>
                             <PercentageContainer>
-                                <PercentageFilled percentage={passPercentage} fillColor={greenColorCode} />
+                                <PercentageFilled percentage={passPercentage} fillcolor={greenColorCode} />
                             </PercentageContainer>
                         </NumberContainer>
                     </QualityContainer>
@@ -85,7 +85,7 @@ const QualityGateProjectsSummary = ({ projects }) => {
                         <NumberContainer>
                             <NumberText>{failed}</NumberText>
                             <PercentageContainer>
-                                <PercentageFilled percentage={failPercentage} fillColor={redColorCode} />
+                                <PercentageFilled percentage={failPercentage} fillcolor={redColorCode} />
                             </PercentageContainer>
                         </NumberContainer>
                     </QualityContainer>

@@ -72,11 +72,12 @@ const ProjectAppBar = ({ item }) => {
     const searchParams = new URLSearchParams(location.search);
     const projectName = searchParams.get('project');
     const id = searchParams.get('id');
+    const quality = searchParams.get('quality');
 
     const navigate = useNavigate();
 
     const handleItemClick = (path) => {
-        navigate('/dashboard/' + path +"?id=" + id + "&project=" + projectName);
+        navigate('/dashboard/' + path +"?id=" + id + "&project=" + projectName + "&quality=" + quality);
     };
 
     return (

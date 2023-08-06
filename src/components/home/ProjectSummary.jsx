@@ -17,7 +17,7 @@ const Right = styled.div `
   padding: 15px 15px 15px 0;
 `;
 
-const ProjectSummary = ({ projects }) => {
+const ProjectSummary = ({ projects, qualityGate }) => {
 
     const projectColumn1Element = [];
     const projectColumn2Element = [];
@@ -34,12 +34,12 @@ const ProjectSummary = ({ projects }) => {
         <Container>
             <Left>
                 {projectColumn1Element.map((element) => (
-                   <CoverageProjectSummaryCard element={element}/>
+                   <CoverageProjectSummaryCard element={element} qualityGate={qualityGate}/>
                 ))}
             </Left>
             <Right>
                 {projectColumn2Element.map((element) => (
-                    <CoverageProjectSummaryCard element={element}/>
+                    <CoverageProjectSummaryCard element={element} qualityGate={qualityGate}/>
                 ))}
             </Right>
         </Container>

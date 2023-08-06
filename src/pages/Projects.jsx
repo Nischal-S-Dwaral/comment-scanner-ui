@@ -156,25 +156,35 @@ const Projects = () => {
                             <Loading loadingText={'Loading... Getting Projects'}/>
                         </LoadingContainer>
                     ) : (
-                        <ProjectsContainer>
-                            <Sidebar>
-                                <SidebarHeader>Summary</SidebarHeader>
-                                <QualityGateProjectsSummary projects={projects}/>
-                                <CoverageProjectsSummary projects={projects}/>
-                                <EditQualityGate qualityGate={qualityGate} />
-                            </Sidebar>
-                            <MainContainer>
-                                <Top>
-                                    <TotalProjectsText>{projects.length} project(s)</TotalProjectsText>
-                                    <CreateProjectButton onClick={handleCreateProjectButton}>
-                                        Create New Project
-                                    </CreateProjectButton>
-                                </Top>
-                                <Bottom>
-                                    <ProjectSummary projects={projects} />
-                                </Bottom>
-                            </MainContainer>
-                        </ProjectsContainer>
+                        projects.length > 0 && (
+                            <>
+                                <ProjectsContainer>
+                                    <Sidebar>
+                                        <SidebarHeader>Summary</SidebarHeader>
+                                        <QualityGateProjectsSummary projects={projects}/>
+                                        <CoverageProjectsSummary projects={projects}/>
+                                        <EditQualityGate qualityGate={qualityGate} />
+                                    </Sidebar>
+                                    <MainContainer>
+                                        <Top>
+                                            <TotalProjectsText>{projects.length} project(s)</TotalProjectsText>
+                                            <CreateProjectButton onClick={handleCreateProjectButton}>
+                                                Create New Project
+                                            </CreateProjectButton>
+                                        </Top>
+                                        <Bottom>
+                                            {
+                                                qualityGate && (
+                                                    <>
+                                                        <ProjectSummary projects={projects} qualityGate={qualityGate} />
+                                                    </>
+                                                )
+                                            }
+                                        </Bottom>
+                                    </MainContainer>
+                                </ProjectsContainer>
+                            </>
+                        )
                     )
                 }
             </Main>

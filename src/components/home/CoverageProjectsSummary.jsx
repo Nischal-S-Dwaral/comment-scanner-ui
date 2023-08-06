@@ -38,7 +38,7 @@ const PercentageContainer = styled.div `
 `;
 
 const PercentageFilled = styled.div `
-  background-color: ${(props) => props.fillColor};
+  background-color: ${(props) => props.fillcolor};
   width: ${(props) => props.percentage}%;
   top: 0;
   right: 0;
@@ -93,7 +93,7 @@ const CoverageProjectsSummary = ({ projects }) => {
                         {countGreaterThanOrEqual80}
                     </NumberText>
                     <PercentageContainer>
-                        <PercentageFilled percentage={(countGreaterThanOrEqual80 / total) * 100} fillColor={greenColorCode} />
+                        <PercentageFilled percentage={(countGreaterThanOrEqual80 / total) * 100} fillcolor={greenColorCode} />
                     </PercentageContainer>
                 </RangeContainer>
             </CoverageContainer>
@@ -104,7 +104,7 @@ const CoverageProjectsSummary = ({ projects }) => {
                         {countBetween60And80}
                     </NumberText>
                     <PercentageContainer>
-                        <PercentageFilled percentage={(countBetween60And80 / total) * 100} fillColor={yellowColorCode} />
+                        <PercentageFilled percentage={(countBetween60And80 / total) * 100} fillcolor={yellowColorCode} />
                     </PercentageContainer>
                 </RangeContainer>
             </CoverageContainer>
@@ -115,7 +115,7 @@ const CoverageProjectsSummary = ({ projects }) => {
                         {countBetween40And60}
                     </NumberText>
                     <PercentageContainer>
-                        <PercentageFilled percentage={(countBetween40And60 / total) * 100} fillColor={orangeColorCode} />
+                        <PercentageFilled percentage={(countBetween40And60 / total) * 100} fillcolor={orangeColorCode} />
                     </PercentageContainer>
                 </RangeContainer>
             </CoverageContainer>
@@ -126,7 +126,7 @@ const CoverageProjectsSummary = ({ projects }) => {
                         {countLessThan40}
                     </NumberText>
                     <PercentageContainer>
-                        <PercentageFilled percentage={(countLessThan40 / total) * 100} fillColor={redColorCode} />
+                        <PercentageFilled percentage={(countLessThan40 / total) * 100} fillcolor={redColorCode} />
                     </PercentageContainer>
                 </RangeContainer>
             </CoverageContainer>

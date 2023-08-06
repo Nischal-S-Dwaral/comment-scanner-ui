@@ -93,12 +93,12 @@ const LastAnalysisText = styled.h4 `
   height: 100%;
 `;
 
-const CoverageProjectSummaryCard = ({ element }) => {
+const CoverageProjectSummaryCard = ({ element, qualityGate }) => {
 
     let navigate = useNavigate();
 
     const handleCardClick = (id, repository) => {
-        navigate("/dashboard/overview?id="+id+"&project="+repository);
+        navigate("/dashboard/overview?id="+id+"&project="+repository+"&quality="+qualityGate);
     }
 
     return (
