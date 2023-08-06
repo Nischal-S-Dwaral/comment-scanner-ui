@@ -7,6 +7,8 @@ import FolderExplorer from "../components/projects/FolderExplorer";
 import {Dialog} from "@mui/material";
 import {useLocation} from "react-router-dom";
 import CodeView from "../components/codeView/CodeView";
+import axios from "axios";
+import Loading from "../components/Loading";
 
 const Container = styled.div `
   display: flex;
@@ -34,153 +36,60 @@ const Right = styled.div `
   height: 100%;
 `;
 
+const LoadingContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const ProjectCode = () => {
-
-    const [apiResponse, setApiResponse] = useState([
-        {
-            path: "src/main/java/org/msc/web/dev",
-            coverage: "80%",
-            isBaseDirectory: true,
-            directories: [
-                {
-                    coverage: "70%",
-                    name: "constant"
-                },
-                {
-                    coverage: "60%",
-                    name: "controller"
-                },
-                {
-                    coverage: "80%",
-                    name: "service"
-                }
-            ],
-            files: [
-                {
-                    coverage: "58%",
-                    name: "Application.java"
-                }
-            ]
-        },
-        {
-            path: "src/main/java/org/msc/web/dev/constant",
-            coverage: "50%",
-            isBaseDirectory: false,
-            directories: [],
-            files: [
-                {
-                    coverage: "30%",
-                    name: "Constants.java"
-                },
-                {
-                    coverage: "80%",
-                    name: "JavaSpringBootConstants.java"
-                }
-            ]
-        },
-        {
-            path: "src/main/java/org/msc/web/dev/controller",
-            coverage: "90%",
-            isBaseDirectory: false,
-            directories: [],
-            files: [
-                {
-                    coverage: "90%",
-                    name: "RestController.java"
-                }
-            ]
-        },
-        {
-            path: "src/main/java/org/msc/web/dev/service",
-            coverage: "40%",
-            isBaseDirectory: false,
-            directories: [
-                {
-                    coverage: "60%",
-                    name: "impl"
-                }
-            ],
-            files: [
-                {
-                    coverage: "58%",
-                    name: "UseCasesAdaptorFactory.java"
-                },
-                {
-                    name: "IUseCaseImplementation.java",
-                    coverage: "80%"
-                }
-            ]
-        },
-        {
-            path: "src/main/java/org/msc/web/dev/service/impl",
-            coverage: "80%",
-            isBaseDirectory: false,
-            directories: [
-                {
-                    coverage: "50%",
-                    name: "github"
-                },
-                {
-                    coverage: "40%",
-                    name: "java"
-                }
-            ],
-            files: [
-                {
-                    coverage: "100%",
-                    name: "package-info.java"
-                }
-            ]
-        },
-        {
-            path: "src/main/java/org/msc/web/dev/service/impl/github",
-            coverage: "80%",
-            isBaseDirectory: false,
-            directories: [],
-            files: [
-                {
-                    coverage: "100%",
-                    name: "package-info.java"
-                },
-                {
-                    coverage: "100%",
-                    name: "Fetch.java"
-                }
-            ]
-        },
-        {
-            path: "src/main/java/org/msc/web/dev/service/impl/java",
-            coverage: "40%",
-            isBaseDirectory: false,
-            directories: [],
-            files: [
-                {
-                    coverage: "60%",
-                    name: "package-info.java"
-                },
-                {
-                    coverage: "20%",
-                    name: "Add.java"
-                }
-            ]
-        }
-    ]);
-
-    const [currentPath, setCurrentPath] = useState("");
-    const [openCodeModal, setCodeOpenModal] = useState(false);
-    const [className, setClassName] = useState('');
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const projectName = searchParams.get('project');
+    const projectId = searchParams.get('id');
+
+    const [projectCodeStructure, setProjectCodeStructure] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [currentPath, setCurrentPath] = useState("");
+    const [openCodeModal, setCodeOpenModal] = useState(false);
+    const [className, setClassName] = useState('');
 
     useEffect(() => {
-        const baseDirectories = apiResponse.filter((directory) => directory.isBaseDirectory);
-        if (baseDirectories) {
-            const baseDirectory = baseDirectories[0];
-            setCurrentPath(baseDirectory.path);
+
+        setIsLoading(true);
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:8080/api/project/getProjectCodeStructure?projectId='+projectId,
+            headers: { }
+        };
+
+        axios.request(config)
+            .then((response) => {
+                if (response.data.returnCode === "0") {
+                    setProjectCodeStructure(response.data.projectCodeDirectoryStructureList);
+                    setIsLoading(false);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    }, [projectId]);
+
+
+    useEffect(() => {
+        if (projectCodeStructure.length > 0) {
+            const baseDirectories = projectCodeStructure.filter((directory) => directory.baseDirectory);
+            if (baseDirectories) {
+                const baseDirectory = baseDirectories[0];
+                setCurrentPath(baseDirectory.path);
+            }
         }
-    }, [apiResponse]);
+    }, [projectCodeStructure]);
 
     useEffect(() => {
         if (className) {
@@ -205,37 +114,49 @@ const ProjectCode = () => {
         <Container>
             <Navbar/>
             <ProjectAppBar item="code"/>
-            <Main>
-                {
-                    currentPath && (
+            {
+                isLoading ? (
+                    <LoadingContainer>
+                        <Loading loadingText={'Loading... Getting Project Code'}/>
+                    </LoadingContainer>
+                ) : (
+                    projectCodeStructure.length > 0 && (
                         <>
-                            <Left>
-                                <Header>Quick Access</Header>
-                                <FolderTree
-                                    apiResponse={apiResponse}
-                                    handleChangeInPath={handleChangeInPath}
-                                    handleClassClick={handleClassClick}
-                                />
-                            </Left>
-                            <Right>
-                                <FolderExplorer
-                                    apiResponse={apiResponse}
-                                    parameterCurrentPath={currentPath}
-                                    handleClassClick={handleClassClick}
-                                />
-                            </Right>
+                            <Main>
+                                {
+                                    currentPath && (
+                                        <>
+                                            <Left>
+                                                <Header>Quick Access</Header>
+                                                <FolderTree
+                                                    apiResponse={projectCodeStructure}
+                                                    handleChangeInPath={handleChangeInPath}
+                                                    handleClassClick={handleClassClick}
+                                                />
+                                            </Left>
+                                            <Right>
+                                                <FolderExplorer
+                                                    apiResponse={projectCodeStructure}
+                                                    parameterCurrentPath={currentPath}
+                                                    handleClassClick={handleClassClick}
+                                                />
+                                            </Right>
+                                        </>
+                                    )
+                                }
+                                <Dialog
+                                    open={openCodeModal}
+                                    onClose={handleCloseCodeModel}
+                                    fullWidth
+                                    maxWidth={false}
+                                >
+                                    <CodeView projectName={projectName} className={className}/>
+                                </Dialog>
+                            </Main>
                         </>
                     )
-                }
-                <Dialog
-                    open={openCodeModal}
-                    onClose={handleCloseCodeModel}
-                    fullWidth
-                    maxWidth={false}
-                >
-                    <CodeView projectName={projectName} className={className}/>
-                </Dialog>
-            </Main>
+                )
+            }
         </Container>
     );
 };

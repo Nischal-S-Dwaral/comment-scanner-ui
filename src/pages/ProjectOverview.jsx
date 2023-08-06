@@ -67,7 +67,6 @@ const ProjectOverview = () => {
     useEffect(() => {
 
         setIsLoading(true);
-
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
