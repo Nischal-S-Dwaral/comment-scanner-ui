@@ -25,8 +25,27 @@ const Left = styled.div`
   flex-direction: column;
 `;
 
-const SubHeader = styled.h3`
+const SubHeader = styled.div`
   margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const SubHeaderText = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+const ReScanProjectButton = styled.button`
+  color: white;
+  background-color: black;
+  padding: 10px 35px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
 `;
 
 const Right = styled.div`
@@ -104,6 +123,40 @@ const ProjectOverview = () => {
         {field: "qualityGatePass", headerName: "Result", width: 200},
     ];
 
+    const handleReScanProject = () => {
+        setIsLoading(true);
+
+        axios
+            .post('http://localhost:8080/api/java/updateSpringBoot', null, {
+                params: {
+                    projectId: projectId,
+                },
+            })
+            .then((response) => {
+                if (response.data.returnCode === "0") {
+                    // Second API call
+                    return axios.post('http://localhost:8080/api/summary/add', null, {
+                        params: {
+                            projectId: projectId,
+                        },
+                    });
+                } else {
+                    setIsLoading(false);
+                }
+            })
+            .then((response) => {
+                if (response) {
+                    console.log(JSON.stringify(response.data));
+                }
+                setIsLoading(false);
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.log(error);
+                setIsLoading(false);
+            });
+    };
+
     return (
         <Container>
             <Navbar/>
@@ -122,7 +175,11 @@ const ProjectOverview = () => {
                                     <QualityGateStatusOverview status={qualityGateResult}/>
                                 </Left>
                                 <Right>
-                                    <SubHeader>Coverage</SubHeader>
+                                    <SubHeader>
+                                        <SubHeaderText>Coverage</SubHeaderText>
+                                        <ReScanProjectButton onClick={handleReScanProject}>Re-Scan
+                                            Project</ReScanProjectButton>
+                                    </SubHeader>
                                     <CoverageOverview hasChange={hasChange}
                                                       isIncrease={isIncrease}
                                                       changePercentage={changePercentage}
