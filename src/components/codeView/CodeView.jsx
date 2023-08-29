@@ -69,7 +69,6 @@ const CodeView = ({ projectName, classId }) => {
                         setCoverage(response.data.coverage);
                         setPath(response.data.path);
                     }
-                    console.log(JSON.stringify(response.data));
                 })
                 .catch((error) => {
                     console.log(error);
