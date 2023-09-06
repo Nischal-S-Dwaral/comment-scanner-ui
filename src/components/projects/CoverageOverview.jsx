@@ -80,7 +80,7 @@ const CoverageOverview = ({ hasChange, isIncrease, changePercentage, coveragePer
         <Container>
             <Left>
                 {
-                    hasChange ?
+                    hasChange && changePercentage !== 0 ?
                         <CoverageChangeMainContainer>
                             <CoverageChangeContainer>
                                 {

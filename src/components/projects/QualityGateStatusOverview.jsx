@@ -51,7 +51,7 @@ const QualityGateStatusOverview = ({ status }) => {
         <QualityGateStatusContainer>
             <QualityGateResult>
                 {
-                    status === "passed" ?
+                    status === "PASSED" ?
                         <QualityGateIcon fillColor={greenColorCode}>
                             <CheckCircle style={{ height:' 40px', width: '40px'}}/>
                         </QualityGateIcon>
@@ -67,7 +67,7 @@ const QualityGateStatusOverview = ({ status }) => {
             </QualityGateResult>
             <ImageContainer>
                 {
-                    status === "passed" ?
+                    status === "PASSED" ?
                         <ImageIcon src="/passedQualityGate.png" alt="Passed"/>
                         :
                         <ImageIcon src="/failedQualityGate.png" alt="Failed"/>
