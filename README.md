@@ -105,32 +105,30 @@ To configure Firebase service account credentials in the `firebase.js` file, fol
 
 ## Screenshots
 
-
+#### Platform Homepage
 ![Home Page](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/home.png)
-*Caption: Platform Homepage*
 
-
+#### GitHub Configurations - Customising GitHub Settings for Repository Integration*
 ![GitHub Configurations](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/create_project_config.png)
-*Caption: GitHub Configurations - Customising GitHub Settings for Repository Integration*
 
-
+#### Project Overview - Scan History and Passed Quality Gate Status
 ![Project Overview Pass](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/project_overview_passed.png)
-*Caption: Project Overview - Scan History and Passed Quality Gate Status*
 
+#### Project Overview - Scan History and Failed Quality Gate Status
 ![Project Overview Fail](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/project_overview_failed.png)
-*Caption: Project Overview - Scan History and Failed Quality Gate Status*
 
+#### Codebase Folder Structure - Hierarchical Overview
 ![Codebase Folder Structure](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/codebase_treeview.png)
-*Caption: Codebase Folder Structure - Hierarchical Overview*
 
+#### Code View - Mixed Documentation Comments Coverage (Complete, Incomplete and Absent)
 ![Code View Mix](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/codeview_mixed.png)
-*Caption: Code View - Mixed Documentation Comments Coverage (Complete, Incomplete and Absent)*
 
+#### Code View - 0% Documentation Comments Coverage
 ![Code View Fail](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/codeview_0_coverage.png)
-*Caption: Code View - 0% Documentation Comments Coverage*
 
+#### Login Page
 ![Login Page](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/login_page.png)
-*Caption: Login Page*
+
 
 ## Contact Information
 
