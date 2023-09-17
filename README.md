@@ -1,70 +1,139 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Comment-Scanner Platform UI
 
-## Available Scripts
+The Comment-Scanner Platform is a React.js-based web application that provides a comprehensive solution for analysing documentation comments in your Java projects hosted on GitHub.
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Screenshots](#screenshots)
+- [Contact Information](#contact-information)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. **User Authentication and Authorisation:** Secure user authentication with email and password to prevent unauthorised access using Firebase.
 
-### `npm test`
+2. **Initiating Analysis:** Create projects with GitHub configurations and initiate documentation comments analysis for selected projects.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. **Viewing Analysis Results:** Display analysis results, including summary metrics and code views for Java files with necessary review comments.
 
-### `npm run build`
+4. **Quality Gate:** Enforce specific project coverage percentages and update quality gates for projects.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+5. **Access Control:** Ensure all use cases require user authentication.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Technologies Used
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The following technologies and tools were used in the development of the Comment-Scanner platform:
 
-### `npm run eject`
+- **React JS:** JavaScript library for building user interfaces.
+- **Axios:** Used for making API calls to the backend.
+- **Redux:** Used for state management.
+- **Firebase Authentication:** Provides secure user login, registration, and authentication.
+- **Persist Storage:** Used for local data storage to enhance user experience, including the persistence of user keys across page refreshes.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To run the Comment-Scanner Platform locally, follow these steps:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Clone the repository to your local machine.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```bash
+   git clone https://github.com/Nischal-S-Dwaral/comment-scanner-ui
+   ```
 
-## Learn More
+2. Navigate to the project directory.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```bash
+   cd comment-scanner-ui
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Install the project dependencies.
 
-### Code Splitting
+   ```bash
+   npm install
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4. Start the development server.
 
-### Analyzing the Bundle Size
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+5. Access the application in your web browser at `http://localhost:3000`.
 
-### Making a Progressive Web App
+## Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+To use the Comment-Scanner Platform, follow these steps:
 
-### Advanced Configuration
+1. Log in to your Comment-Scanner account or register if you don't have an account yet.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+2. Create new projects by configuring GitHub repository access by the "Create Project" button.
 
-### Deployment
+3. Initiate documentation comments analysis for selected projects.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+4. View analysis results, including documentation coverage metrics and code views.
 
-### `npm run build` fails to minify
+## Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+To configure Firebase service account credentials in the `firebase.js` file, follow these steps:
+
+1. Navigate to the `src` directory of the project.
+
+2. Open the `firebase.js` file.
+
+3. Locate the Firebase configuration section.
+
+4. Replace the placeholder values with your Firebase service account credentials.
+
+   ```javascript
+   // Your Firebase configuration
+   const firebaseConfig = {
+     apiKey: 'YOUR_API_KEY',
+     authDomain: 'YOUR_AUTH_DOMAIN',
+     projectId: 'YOUR_PROJECT_ID',
+     storageBucket: 'YOUR_STORAGE_BUCKET',
+     messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
+     appId: 'YOUR_APP_ID',
+   };
+   ```
+
+5. Save the file.
+
+## Screenshots
+
+
+![Home Page](https://example.com/screenshots/login.png)
+*Caption: Platform Homepage*
+
+
+![GitHub Configurations](https://example.com/screenshots/analysis-summary.png)
+*Caption: GitHub Configurations - Customising GitHub Settings for Repository Integration*
+
+
+![Project Overview Pass](https://example.com/screenshots/project-management.png)
+*Caption: Project Overview - Scan History and Passed Quality Gate Status*
+
+![Project Overview Fail](https://example.com/screenshots/project-management.png)
+*Caption: Project Overview - Scan History and Failed Quality Gate Status*
+
+![Codebase Folder Structure](https://example.com/screenshots/project-management.png)
+*Caption: Codebase Folder Structure - Hierarchical Overview*
+
+![Code View Mix](https://example.com/screenshots/project-management.png)
+*Caption: Code View - Mixed Documentation Comments Coverage (Complete, Incomplete and Absent)*
+
+![Code View Fail](https://example.com/screenshots/project-management.png)
+*Caption: Code View - 0% Documentation Comments Coverage*
+
+![Login Page](https://example.com/screenshots/project-management.png)
+*Caption: Login Page*
+
+## Contact Information
+
+- Author: Nischal Srinivas Dwaral
+- Email: nischal.dwaral@gmail.com
+- GitHub: [https://github.com/Nischal-S-Dwaral](https://github.com/Nischal-S-Dwaral)
