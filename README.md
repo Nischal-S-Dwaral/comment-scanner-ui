@@ -106,30 +106,30 @@ To configure Firebase service account credentials in the `firebase.js` file, fol
 ## Screenshots
 
 
-![Home Page](https://example.com/screenshots/login.png)
+![Home Page](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/home.png)
 *Caption: Platform Homepage*
 
 
-![GitHub Configurations](https://example.com/screenshots/analysis-summary.png)
+![GitHub Configurations](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/create_project_config.png)
 *Caption: GitHub Configurations - Customising GitHub Settings for Repository Integration*
 
 
-![Project Overview Pass](https://example.com/screenshots/project-management.png)
+![Project Overview Pass](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/project_overview_passed.png)
 *Caption: Project Overview - Scan History and Passed Quality Gate Status*
 
-![Project Overview Fail](https://example.com/screenshots/project-management.png)
+![Project Overview Fail](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/project_overview_failed.png)
 *Caption: Project Overview - Scan History and Failed Quality Gate Status*
 
-![Codebase Folder Structure](https://example.com/screenshots/project-management.png)
+![Codebase Folder Structure](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/codebase_treeview.png)
 *Caption: Codebase Folder Structure - Hierarchical Overview*
 
-![Code View Mix](https://example.com/screenshots/project-management.png)
+![Code View Mix](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/codeview_mixed.png)
 *Caption: Code View - Mixed Documentation Comments Coverage (Complete, Incomplete and Absent)*
 
-![Code View Fail](https://example.com/screenshots/project-management.png)
+![Code View Fail](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/codeview_0_coverage.png)
 *Caption: Code View - 0% Documentation Comments Coverage*
 
-![Login Page](https://example.com/screenshots/project-management.png)
+![Login Page](https://github.com/Nischal-S-Dwaral/comment-scanner-ui/blob/main/sample/login_page.png)
 *Caption: Login Page*
 
 ## Contact Information
