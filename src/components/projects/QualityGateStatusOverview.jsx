@@ -2,6 +2,8 @@ import React from 'react';
 import styled from "styled-components";
 import {Cancel, CheckCircle} from "@mui/icons-material";
 import {greenColorCode, redColorCode} from "../../constants";
+import FailedQualityCheckImage from "../../img/failedQualityGate.png";
+import PassedQualityCheckImage from "../../img/passedQualityGate.png";
 
 const QualityGateStatusContainer = styled.div `
   padding: 30px;
@@ -68,9 +70,9 @@ const QualityGateStatusOverview = ({ status }) => {
             <ImageContainer>
                 {
                     status === "PASSED" ?
-                        <ImageIcon src="/passedQualityGate.png" alt="Passed"/>
+                        <ImageIcon src={PassedQualityCheckImage} alt="Passed"/>
                         :
-                        <ImageIcon src="/failedQualityGate.png" alt="Failed"/>
+                        <ImageIcon src={FailedQualityCheckImage} alt="Failed"/>
                 }
             </ImageContainer>
         </QualityGateStatusContainer>

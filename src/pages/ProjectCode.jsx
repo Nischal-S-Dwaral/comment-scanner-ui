@@ -7,8 +7,8 @@ import FolderExplorer from "../components/projects/FolderExplorer";
 import {Dialog} from "@mui/material";
 import {useLocation} from "react-router-dom";
 import CodeView from "../components/codeView/CodeView";
-import axios from "axios";
 import Loading from "../components/Loading";
+import {projectCodeDirectoryStructure} from "../data";
 
 const Container = styled.div `
   display: flex;
@@ -49,37 +49,13 @@ const ProjectCode = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const projectName = searchParams.get('project');
-    const projectId = searchParams.get('id');
 
-    const [projectCodeStructure, setProjectCodeStructure] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
     const [currentPath, setCurrentPath] = useState("");
     const [openCodeModal, setCodeOpenModal] = useState(false);
     const [classId, setClassId] = useState('');
 
-    useEffect(() => {
-
-        setIsLoading(true);
-        let config = {
-            method: 'get',
-            maxBodyLength: Infinity,
-            url: 'http://localhost:8080/api/project/getProjectCodeStructure?projectId='+projectId,
-            headers: { }
-        };
-
-        axios.request(config)
-            .then((response) => {
-                if (response.data.returnCode === "0") {
-                    setProjectCodeStructure(response.data.projectCodeDirectoryStructureList);
-                    setIsLoading(false);
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-    }, [projectId]);
-
+    const isLoading = false;
+    const projectCodeStructure = projectCodeDirectoryStructure.projectCodeDirectoryStructureList;
 
     useEffect(() => {
         if (projectCodeStructure.length > 0) {

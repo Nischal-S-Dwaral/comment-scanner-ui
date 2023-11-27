@@ -8,6 +8,8 @@ import {DataGrid, GridToolbar} from "@mui/x-data-grid";
 import {useLocation} from "react-router-dom";
 import axios from "axios";
 import Loading from "../components/Loading";
+import {projectOverviewData} from "../data";
+import {Dialog, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 
 const Container = styled.div`
   display: flex;
@@ -72,49 +74,23 @@ const ProjectOverview = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const projectId = searchParams.get('id');
-    const quality = searchParams.get('quality');
 
-    const [projects, setProjects] = useState([]);
-    const [latestCoverage, setLatestCoverage] = useState(0);
-    const [hasChange, setHasChange] = useState(false);
-    const [isIncrease, setIsIncrease] = useState(false);
-    const [changePercentage, setChangePercentage] = useState(0);
-    const [isLoading, setIsLoading] = useState(false);
-    const [qualityGateResult, setQualityGateResult] = useState('');
+    const projects = projectOverviewData.projectSummaryList
+    const latestCoverage = projectOverviewData.latestCoverage;
+    const qualityGateResult = projectOverviewData.qualityGateResult
 
+    let hasChange = false;
+    let changePercentage = 0;
+    const isLoading = false;
+    let isIncrease = false;
 
-    useEffect(() => {
+    if (projects.length > 1) {
+        hasChange = true;
+        changePercentage = projectOverviewData.changePercentage
+        isIncrease = projectOverviewData.increase
+    }
 
-        setIsLoading(true);
-        let config = {
-            method: 'get',
-            maxBodyLength: Infinity,
-            url: 'http://localhost:8080/api/summary/getByProjectId?projectId=' + projectId + '&qualityGate=' + quality,
-            headers: {}
-        };
-
-        axios.request(config)
-            .then((response) => {
-                if (response.data.returnCode === "0") {
-
-                    const summaryList = response.data.projectSummaryList;
-                    setProjects(summaryList);
-                    setLatestCoverage(response.data.latestCoverage);
-                    setQualityGateResult(response.data.qualityGateResult);
-                    setIsLoading(false);
-
-                    if (summaryList.length > 1) {
-                        setHasChange(true);
-                        setChangePercentage(response.data.changePercentage);
-                        setIsIncrease(response.data.isIncrease);
-                    }
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-    }, [projectId, quality]);
+    const [demoModal, setDemoModal] = useState(false);
 
     const columns = [
         {field: "coveragePercentage", headerName: "Coverage", width: 250},
@@ -124,37 +100,12 @@ const ProjectOverview = () => {
     ];
 
     const handleReScanProject = () => {
-        setIsLoading(true);
+        setDemoModal(true);
+    };
 
-        axios
-            .post('http://localhost:8080/api/java/updateSpringBoot', null, {
-                params: {
-                    projectId: projectId,
-                },
-            })
-            .then((response) => {
-                if (response.data.returnCode === "0") {
-                    // Second API call
-                    return axios.post('http://localhost:8080/api/summary/add', null, {
-                        params: {
-                            projectId: projectId,
-                        },
-                    });
-                } else {
-                    setIsLoading(false);
-                }
-            })
-            .then((response) => {
-                if (response) {
-                    console.log(JSON.stringify(response.data));
-                }
-                setIsLoading(false);
-                window.location.reload();
-            })
-            .catch((error) => {
-                console.log(error);
-                setIsLoading(false);
-            });
+    const handleDemoDialogClose = (event) => {
+        event.preventDefault();
+        setDemoModal(false);
     };
 
     return (
@@ -198,6 +149,24 @@ const ProjectOverview = () => {
                                     </ActivityDataGridContainer>
                                 </Right>
                             </Main>
+                            {
+                                demoModal &&
+                                <Dialog
+                                    open={demoModal}
+                                    onClose={handleDemoDialogClose}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-description"
+                                >
+                                    <DialogTitle id="alert-dialog-title">
+                                        ALERT
+                                    </DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText id="alert-dialog-description">
+                                            This is just a demo!!
+                                        </DialogContentText>
+                                    </DialogContent>
+                                </Dialog>
+                            }
                         </>
                     )
                 )

@@ -4,6 +4,7 @@ import {AccountTree} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../api/Logout";
+import Logo from "../img/comment-scanner-icon-256.png";
 
 const Container = styled.div `
   height: 50px;
@@ -181,7 +182,7 @@ const Navbar = () => {
             <Wrapper>
                 <Left onClick={handleLogoClick}>
                     <LogoText>Comment Scanner</LogoText>
-                    <LogoImage src="/comment-scanner-icon-256.png" alt="Logo" />
+                    <LogoImage src={Logo} alt="Logo" />
                 </Left>
                 <Center>
                     <CenterNavigation onClick={handleProjectIconClick}>

@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import {ChevronRight, Source} from "@mui/icons-material";
 import CodeRow from "./CodeRow";
-import axios from "axios";
+import {linesOfCodeData} from "../../data";
 
 const Container = styled.div `
   width: 100%;
@@ -48,33 +48,9 @@ const BottomContainer = styled.div ``;
 
 const CodeView = ({ projectName, classId }) => {
 
-    const [linesOfCodes, setLinesOfCodes] = useState([]);
-    const [path, setPath] = useState(null);
-    const [coverage, setCoverage] = useState(0);
-
-    useEffect(() => {
-
-        if (classId) {
-            let config = {
-                method: 'get',
-                maxBodyLength: Infinity,
-                url: 'http://localhost:8080/api/project/getProjectCode?fileId='+classId,
-                headers: { }
-            };
-
-            axios.request(config)
-                .then((response) => {
-                    if (response.data.returnCode === "0") {
-                        setLinesOfCodes(response.data.lineOfCodes);
-                        setCoverage(response.data.coverage);
-                        setPath(response.data.path);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-    }, [classId])
+    const linesOfCodes = linesOfCodeData.lineOfCodes
+    const coverage = linesOfCodeData.coverage
+    const path = linesOfCodeData.path
 
     return (
         <Container>

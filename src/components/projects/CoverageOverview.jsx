@@ -2,6 +2,8 @@ import React from 'react';
 import styled from "styled-components";
 import {ErrorOutline} from "@mui/icons-material";
 import CircularPercentageWithLabel from "../CircularPercentageWithLabel";
+import IncreaseImage from "../../img/increase.png";
+import DecreaseImage from "../../img/decrease.png";
 
 const Container = styled.div `
   display: flex;
@@ -85,9 +87,9 @@ const CoverageOverview = ({ hasChange, isIncrease, changePercentage, coveragePer
                             <CoverageChangeContainer>
                                 {
                                     isIncrease ?
-                                        <ChangeImage src="/increase.png" alt="Increase"/>
+                                        <ChangeImage src={IncreaseImage} alt="Increase"/>
                                         :
-                                        <ChangeImage src="/decrease.png" alt="Decrease"/>
+                                        <ChangeImage src={DecreaseImage} alt="Decrease"/>
                                 }
                                 <ChangePercentage>{changePercentage} %</ChangePercentage>
                             </CoverageChangeContainer>

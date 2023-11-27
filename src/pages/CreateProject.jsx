@@ -4,6 +4,9 @@ import Navbar from "../components/Navbar";
 import {Dialog} from "@mui/material";
 import ComingSoon from "../components/createProject/ComingSoon";
 import GitHubConfiguration from "../components/createProject/GitHubConfiguration";
+import GitHubImage from "../img/github.png";
+import GitLabImage from "../img/gitlab.png";
+
 
 const Container = styled.div `
 `;
@@ -121,12 +124,12 @@ const CreateProject = () => {
                     </Left>
                     <Right>
                         <Option onClick={handleGitHubOptionClick}>
-                            <OptionIcon src="/github.png" alt="GitHub" />
+                            <OptionIcon src={GitHubImage} alt="GitHub" />
                             <OptionText>From GitHub</OptionText>
                             <OptionComment>Set up configuration</OptionComment>
                         </Option>
                         <Option onClick={handleGitLabOptionClick}>
-                            <OptionIcon src="/gitlab.png" alt="GitLab" />
+                            <OptionIcon src={GitLabImage} alt="GitLab" />
                             <OptionText>From GitLab</OptionText>
                             <OptionComment>Set up configuration</OptionComment>
                         </Option>

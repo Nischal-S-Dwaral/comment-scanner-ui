@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {greenColorCode, redColorCode} from "../../constants";
 import CircularPercentageWithLabel from "../CircularPercentageWithLabel";
 import {useNavigate} from "react-router-dom";
+import JavaIcon from "../../img/java.png";
 
 const Card = styled.div `
   height: 220px;
@@ -117,7 +118,7 @@ const CoverageProjectSummaryCard = ({ element, qualityGate }) => {
                 <LanguageContainer>
                     <Text>Language</Text>
                     <LanguageIconContainer>
-                        <LanguageIcon src="/java.png" alt="Java" />
+                        <LanguageIcon src={JavaIcon} alt="Java" />
                     </LanguageIconContainer>
                 </LanguageContainer>
                 <LastAnalysisContainer>

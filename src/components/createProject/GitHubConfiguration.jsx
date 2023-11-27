@@ -3,9 +3,6 @@ import styled from "styled-components";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
 import {Autocomplete} from "@mui/lab";
 import Loading from "../Loading";
-import {useSelector} from "react-redux";
-import axios from "axios";
-import {useNavigate} from "react-router-dom";
 
 const LoadingContainer = styled.div`
   width: 100%;
@@ -74,9 +71,6 @@ const GitHubConfiguration = ({ handleCancelButtonClick }) => {
         { label: 'Java', value: 'java' }
     ];
 
-    const user = useSelector((state) => state.user.currentUser);
-    const navigate = useNavigate();
-
     const [selectedLanguage, setSelectedLanguage] = useState(null);
     const [owner, setOwner] = useState('');
     const [repositoryName, setRepositoryName] = useState('');
@@ -85,6 +79,7 @@ const GitHubConfiguration = ({ handleCancelButtonClick }) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [openErrorDialog, setOpenErrorDialog] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [demoModal, setDemoModal] = useState(false);
 
     const handleLanguageChange = (event, newValue) => {
         setSelectedLanguage(newValue);
@@ -104,59 +99,7 @@ const GitHubConfiguration = ({ handleCancelButtonClick }) => {
             setErrorMessage("Please fill up all the required informations.");
             setOpenErrorDialog(true);
         } else {
-            setIsLoading(true);
-            setErrorMessage('');
-
-            let projectId;
-
-            axios
-                .post('http://localhost:8080/api/project/add', {
-                    encodedAccessToken: personalAccessToken,
-                    owner: owner,
-                    repository: repositoryName,
-                    userId: user.uid,
-                    language: language
-                })
-                .then((createProjectResponse) => {
-
-                    if (createProjectResponse.data.returnCode === "0") {
-                        projectId = createProjectResponse.data.projectId;
-
-                        // Introduce a delay of 2 seconds using setTimeout
-                        return new Promise((resolve) => {
-                            setTimeout(resolve, 2000); // 2 seconds delay
-                        });
-                    } else {
-                        setIsLoading(false);
-                    }
-                })
-                .then(() => {
-                    return axios.post('http://localhost:8080/api/java/addSpringBoot', null, {
-                        params: {
-                            projectId: projectId,
-                        },
-                    });
-                })
-                .then((addSpringBootResponse) => {
-                    if (addSpringBootResponse && addSpringBootResponse.data.returnCode === "0") {
-                        return axios.post('http://localhost:8080/api/summary/add', null, {
-                            params: {
-                                projectId: projectId,
-                            },
-                        });
-                    } else {
-                        setIsLoading(false);
-                    }
-                })
-                .then((addSummaryResponse) => {
-                    if (addSummaryResponse && addSummaryResponse.data.returnCode === "0") {
-                        navigate("/projects", { replace: true });
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    setIsLoading(false);
-                });
+           setDemoModal(true);
         }
     }
 
@@ -171,6 +114,11 @@ const GitHubConfiguration = ({ handleCancelButtonClick }) => {
     const handleErrorDialogClose = (event) => {
        event.preventDefault();
        setOpenErrorDialog(false);
+    };
+
+    const handleDemoDialogClose = (event) => {
+        event.preventDefault();
+        setDemoModal(false);
     };
 
     return (
@@ -289,6 +237,24 @@ const GitHubConfiguration = ({ handleCancelButtonClick }) => {
                                         Okay
                                     </Button>
                                 </DialogActions>
+                            </Dialog>
+                        }
+                        {
+                            demoModal &&
+                            <Dialog
+                                open={demoModal}
+                                onClose={handleDemoDialogClose}
+                                aria-labelledby="alert-dialog-title"
+                                aria-describedby="alert-dialog-description"
+                            >
+                                <DialogTitle id="alert-dialog-title">
+                                    ALERT
+                                </DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText id="alert-dialog-description">
+                                        This is just a demo!!
+                                    </DialogContentText>
+                                </DialogContent>
                             </Dialog>
                         }
                     </Container>

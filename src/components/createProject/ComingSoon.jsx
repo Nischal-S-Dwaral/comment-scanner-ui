@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import ComingSoonIcon from "../../img/coming_soon.png"
 
 const Container = styled.div ``;
 
@@ -11,7 +12,7 @@ const ComingSoonImage = styled.img `
 const ComingSoon = () => {
     return (
         <Container>
-            <ComingSoonImage src="/coming_soon.png" alt="ComingSoon"/>
+            <ComingSoonImage src={ComingSoonIcon} alt="ComingSoon"/>
         </Container>
     );
 };

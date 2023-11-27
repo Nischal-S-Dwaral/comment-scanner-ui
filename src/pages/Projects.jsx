@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import QualityGateProjectsSummary from "../components/home/QualityGateProjectsSummary";
@@ -6,9 +6,8 @@ import CoverageProjectsSummary from "../components/home/CoverageProjectsSummary"
 import {useNavigate} from "react-router-dom";
 import ProjectSummary from "../components/home/ProjectSummary";
 import EditQualityGate from "../components/home/EditQualityGate";
-import {useSelector} from "react-redux";
-import axios from "axios";
 import Loading from "../components/Loading";
+import {projectData, qualityGateData} from "../data";
 
 const Container = styled.div `
 `;
@@ -83,68 +82,15 @@ const Bottom = styled.div `
 
 const Projects = () => {
 
-    const [projects, setProjects] = useState([]);
-    const [qualityGate, setQualityGate] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-
     const navigate = useNavigate();
-    const user = useSelector((state) => state.user.currentUser);
 
     const handleCreateProjectButton = () => {
         navigate("/projects/create", { replace: true });
     }
 
-    useEffect(() => {
-        const getQualityGate = async () => {
-            setIsLoading(true);
-
-            let config = {
-                method: 'get',
-                maxBodyLength: Infinity,
-                url: 'http://localhost:8080/api/qualityGate/getByUserId?userId='+user.uid,
-                headers: { }
-            };
-
-            axios.request(config)
-                .then((response) => {
-                   if (response.data.returnCode === "0" ) {
-                       setQualityGate(response.data.qualityGate);
-                   } else {
-                       console.log(response.data);
-                   }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-
-        getQualityGate().then(() => {
-
-            if (qualityGate !== '') {
-
-                let config = {
-                    method: 'get',
-                    maxBodyLength: Infinity,
-                    url: 'http://localhost:8080/api/summary/getByUserId?userId='+user.uid+'&qualityGate='+qualityGate,
-                    headers: { }
-                };
-
-                axios.request(config)
-                    .then((response) => {
-                        if (response.data.returnCode === "0" ) {
-                            setProjects(response.data.projectSummaryList);
-                            setIsLoading(false);
-                        } else {
-                            console.log(response.data);
-                        }
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            }
-        });
-
-    },[qualityGate, user.uid]);
+    const projects = projectData.projectSummaryList
+    const qualityGate = qualityGateData.qualityGate
+    const isLoading = false
 
     return (
         <Container>
