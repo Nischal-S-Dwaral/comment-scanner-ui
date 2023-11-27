@@ -1,19 +1,12 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import {useDispatch, useSelector} from "react-redux";
-import {processStart} from "../redux/userRedux";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
-import {login} from "../api/Login";
 import {useNavigate} from "react-router-dom";
 
 const Container = styled.div `
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(
-          rgba(255,255,255,0.5),
-          rgba(255,255,255,0.5)),
-  url("/register_stock_image.png")
-  center;
+  background: wheat;
   background-size: cover;
   display: flex;
   align-items: center;
@@ -82,14 +75,13 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    let {error, errorMessage} = useSelector(state => state.user);
+    let error = false;
+    let errorMessage = "";
 
     const handleLoginButtonClick = (event) => {
         event.preventDefault(); // prevents the refresh of the page
-        login(dispatch, {email, password}).then(() => {});
     }
 
     const handleRegisterButtonClick = () => {
@@ -97,7 +89,7 @@ const Login = () => {
     }
 
     const handleErrorDialogClose = () => {
-        dispatch(processStart());
+        console.log("Error")
     };
 
     return (

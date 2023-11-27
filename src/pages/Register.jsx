@@ -1,19 +1,12 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {register} from "../api/Register";
-import {processStart} from "../redux/userRedux";
 
 const Container = styled.div `
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(
-          rgba(255,255,255,0.5),
-          rgba(255,255,255,0.5)),
-  url("/register_stock_image.png")
-  center;
+  background: wheat;
   background-size: cover;
   display: flex;
   align-items: center;
@@ -75,10 +68,10 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [notMatchingPassword, setNotMatchingPassword] = useState(false)
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    let {error, errorMessage} = useSelector(state => state.user);
+    let error = false;
+    let errorMessage = "";
 
     /**
      * function to handle register button click
@@ -89,13 +82,12 @@ const Register = () => {
         if (password !== confirmPassword) {
             setNotMatchingPassword(true);
         } else {
-            register(dispatch, navigate, {email, password, username}).then(() => {
-            })
+            console.log("Error");
         }
     };
 
     const handleErrorDialogClose = () => {
-        dispatch(processStart());
+        console.log("Error");
     };
 
     const handleNotMatchingPwdDialogClose = () => {

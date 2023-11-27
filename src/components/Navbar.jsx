@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import {AccountTree} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {logout} from "../api/Logout";
 import Logo from "../img/comment-scanner-icon-256.png";
 
 const Container = styled.div `
@@ -154,8 +152,6 @@ const Navbar = () => {
 
     const navigate = useNavigate();
     const [openDropdown, setOpenDropdown] = useState(false);
-    let {currentUser} = useSelector(state => state.user);
-    const dispatch = useDispatch();
 
     const handleLogoClick = () => {
         navigate('/', { replace: true })
@@ -167,14 +163,6 @@ const Navbar = () => {
 
     const handleLogoutButtonClick = (event) => {
         event.preventDefault(); // prevents the refresh of the page
-
-        try {
-            logout(dispatch).then(() =>
-                navigate("/login", { replace: true })
-            )
-        } catch (error) {
-            console.log("Error while logging out: ", error);
-        }
     }
 
     return (
@@ -194,14 +182,14 @@ const Navbar = () => {
                 </Center>
                 <Right>
                     <UserNameText onClick={() => {setOpenDropdown(!openDropdown)}}>
-                        Hello, {currentUser.username}
+                        Hello, Demo
                     </UserNameText>
                     <ProfileDropdown active={openDropdown}>
                         <DropdownTopContainer>
-                            <LetterImage>{currentUser.username.charAt(0).toUpperCase()}</LetterImage>
+                            <LetterImage>D</LetterImage>
                             <DropdownRightContainer>
-                                <UserName>{currentUser.username}</UserName>
-                                <UserEmail>{currentUser.email}</UserEmail>
+                                <UserName>Demo</UserName>
+                                <UserEmail>Demo@gmail.com</UserEmail>
                             </DropdownRightContainer>
                         </DropdownTopContainer>
                         <Button onClick={handleLogoutButtonClick}>LOGOUT</Button>

@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import {SelectChangeEvent} from "@mui/material";
-import {useSelector} from "react-redux";
 import axios from "axios";
 
 const Container = styled.div `
@@ -35,7 +34,6 @@ const EditQualityGate = ({ qualityGate }) => {
 
     const [isEditing, setIsEditing] = useState(false);
     const [selectedQualityGate, setSelectedQualityGate] = useState(qualityGate);
-    const user = useSelector((state) => state.user.currentUser);
 
     const handleEditClick = () => {
         setIsEditing(true);
@@ -49,7 +47,7 @@ const EditQualityGate = ({ qualityGate }) => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8080/api/qualityGate/update?userId='+user.uid+'&qualityGate='+selectedQualityGate,
+            url: 'http://localhost:8080/api/qualityGate/update?userId='+1234+'&qualityGate='+selectedQualityGate,
             headers: { }
         };
 
