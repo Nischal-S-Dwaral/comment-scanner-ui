@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/comment-scanner-ui/static/js/main.bffb6677.js",
+    "static/js/496.6aee9c33.chunk.js": "/comment-scanner-ui/static/js/496.6aee9c33.chunk.js",
+    "static/media/java.png": "/comment-scanner-ui/static/media/java.ddf8676bd569fe01ab44.png",
+    "static/media/passedQualityGate.png": "/comment-scanner-ui/static/media/passedQualityGate.056513150042c2d91229.png",
+    "static/media/coming_soon.png": "/comment-scanner-ui/static/media/coming_soon.3a17f00fc827d3e8d7d8.png",
+    "static/media/failedQualityGate.png": "/comment-scanner-ui/static/media/failedQualityGate.4a57fc21f2a09894050f.png",
+    "static/media/gitlab.png": "/comment-scanner-ui/static/media/gitlab.c3b1dcfdfda9aa721677.png",
+    "static/media/github.png": "/comment-scanner-ui/static/media/github.44eee0c4a6c25b0d7347.png",
+    "static/media/comment-scanner-icon-256.png": "/comment-scanner-ui/static/media/comment-scanner-icon-256.7407529fa5c86cf80c05.png",
+    "index.html": "/comment-scanner-ui/index.html",
+    "main.bffb6677.js.map": "/comment-scanner-ui/static/js/main.bffb6677.js.map",
+    "496.6aee9c33.chunk.js.map": "/comment-scanner-ui/static/js/496.6aee9c33.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.bffb6677.js"
+  ]
+}
