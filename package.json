@@ -2,7 +2,7 @@
   "name": "comment-scanner-ui",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://nischal-S-dwaral.github.io/comment-scanner-ui",
+  "homepage": "https://nischal-s-dwaral.github.io/comment-scanner-ui/",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
